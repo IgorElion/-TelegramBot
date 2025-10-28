@@ -342,8 +342,8 @@ def formatar_mensagem_sinal(sinal, idioma):
     # Obter horário atual
     hora_atual = obter_hora_brasilia()
     
-    # Horário do sinal (1 minuto depois do envio da mensagem do sinal)
-    hora_sinal = hora_atual + timedelta(minutes=1)
+    # Horário do sinal (mesmo horário do envio, entrada imediata)
+    hora_sinal = hora_atual
     
     # Horário de expiração (1 minuto depois do horário do sinal)
     hora_expiracao = hora_sinal + timedelta(minutes=tempo_expiracao)
@@ -443,28 +443,16 @@ def enviar_sinal():
     chat_id = BOT2_CANAIS_CONFIG["pt"][0]  # Pegar apenas o primeiro canal em português
     
     try:
-        # PASSO 1: Enviar mensagem de participação IMEDIATAMENTE
-        BOT2_LOGGER.info("Enviando mensagem de participação")
-        mensagem_participacao = formatar_mensagem_participacao("pt")
+        # Enviar o SINAL imediatamente no horário agendado
+        BOT2_LOGGER.info("Enviando sinal no horário exato")
+        mensagem = formatar_mensagem_sinal(sinal, "pt")
         bot2.send_message(
             chat_id=chat_id,
-            text=mensagem_participacao,
+            text=mensagem,
             parse_mode="HTML",
             disable_web_page_preview=True
         )
-        BOT2_LOGGER.info("Mensagem de participação enviada com sucesso")
-        
-        # PASSO 2: Agendar GIF para 30 segundos depois
-        threading.Timer(30, lambda: enviar_gif_pre_sinal(chat_id)).start()
-        BOT2_LOGGER.info("Agendado envio de GIF para daqui a 30 segundos")
-        
-        # PASSO 3: Agendar mensagem de abertura para 1 minuto depois
-        threading.Timer(60, lambda: enviar_mensagem_abertura(chat_id)).start()
-        BOT2_LOGGER.info("Agendado envio de mensagem de abertura para daqui a 1 minuto")
-        
-        # PASSO 4: Agendar o sinal propriamente dito para 2 minutos depois
-        threading.Timer(120, lambda: enviar_sinal_propriamente_dito(sinal, chat_id)).start()
-        BOT2_LOGGER.info("Agendado envio do sinal para daqui a 2 minutos")
+        BOT2_LOGGER.info("Sinal enviado com sucesso no horário programado")
         
         return True
     except Exception as e:
