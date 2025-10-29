@@ -342,8 +342,8 @@ def formatar_mensagem_sinal(sinal, idioma):
     # Obter horário atual
     hora_atual = obter_hora_brasilia()
     
-    # Horário do sinal (mesmo horário do envio, entrada imediata)
-    hora_sinal = hora_atual
+    # Horário do sinal (1 minuto depois do início da sequência)
+    hora_sinal = hora_atual + timedelta(minutes=1)
     
     # Horário de expiração (1 minuto depois do horário do sinal)
     hora_expiracao = hora_sinal + timedelta(minutes=tempo_expiracao)
@@ -443,16 +443,28 @@ def enviar_sinal():
     chat_id = BOT2_CANAIS_CONFIG["pt"][0]  # Pegar apenas o primeiro canal em português
     
     try:
-        # Enviar o SINAL imediatamente no horário agendado
-        BOT2_LOGGER.info("Enviando sinal no horário exato")
-        mensagem = formatar_mensagem_sinal(sinal, "pt")
+        # PASSO 1: Enviar mensagem de participação IMEDIATAMENTE no horário agendado
+        BOT2_LOGGER.info("Enviando mensagem de participação")
+        mensagem_participacao = formatar_mensagem_participacao("pt")
         bot2.send_message(
             chat_id=chat_id,
-            text=mensagem,
+            text=mensagem_participacao,
             parse_mode="HTML",
             disable_web_page_preview=True
         )
-        BOT2_LOGGER.info("Sinal enviado com sucesso no horário programado")
+        BOT2_LOGGER.info("Mensagem de participação enviada com sucesso")
+        
+        # PASSO 2: Agendar GIF para 20 segundos depois
+        threading.Timer(20, lambda: enviar_gif_pre_sinal(chat_id)).start()
+        BOT2_LOGGER.info("Agendado envio de GIF para daqui a 20 segundos")
+        
+        # PASSO 3: Agendar mensagem de abertura para 40 segundos depois
+        threading.Timer(40, lambda: enviar_mensagem_abertura(chat_id)).start()
+        BOT2_LOGGER.info("Agendado envio de mensagem de abertura para daqui a 40 segundos")
+        
+        # PASSO 4: Agendar o sinal propriamente dito para 60 segundos (1 minuto) depois
+        threading.Timer(60, lambda: enviar_sinal_propriamente_dito(sinal, chat_id)).start()
+        BOT2_LOGGER.info("Agendado envio do sinal para daqui a 60 segundos (1 minuto)")
         
         return True
     except Exception as e:
@@ -462,7 +474,7 @@ def enviar_sinal():
 
 # Função para enviar o GIF antes do sinal
 def enviar_gif_pre_sinal(chat_id):
-    """Envia o GIF 3 minutos antes do sinal."""
+    """Envia o GIF 20 segundos após a mensagem de participação."""
     BOT2_LOGGER.info("Iniciando envio do GIF pré-sinal")
     
     try:
@@ -494,7 +506,7 @@ def enviar_gif_pre_sinal(chat_id):
 
 # Função para enviar a mensagem de abertura da corretora
 def enviar_mensagem_abertura(chat_id):
-    """Envia a mensagem de abertura da corretora 2 minutos antes do sinal."""
+    """Envia a mensagem de abertura da corretora 40 segundos após a mensagem de participação."""
     BOT2_LOGGER.info("Iniciando envio da mensagem de abertura da corretora")
     
     try:
@@ -543,7 +555,7 @@ def iniciar_bot():
     BOT2_LOGGER.info("Iniciando bot...")
     
     # Horários específicos para envio de sinais
-    horarios_envio = ["09:30", "11:00", "14:00", "15:00", "16:00", "17:00"]
+    horarios_envio = ["10:00", "12:00", "18:00", "22:00"]
     
     # Agendar envio de sinais para cada horário específico
     for horario in horarios_envio:
