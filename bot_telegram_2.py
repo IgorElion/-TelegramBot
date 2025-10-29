@@ -342,8 +342,8 @@ def formatar_mensagem_sinal(sinal, idioma):
     # Obter horário atual
     hora_atual = obter_hora_brasilia()
     
-    # Horário do sinal (1 minuto depois do início da sequência)
-    hora_sinal = hora_atual + timedelta(minutes=1)
+    # Horário do sinal (mesmo horário do envio, entrada imediata)
+    hora_sinal = hora_atual
     
     # Horário de expiração (1 minuto depois do horário do sinal)
     hora_expiracao = hora_sinal + timedelta(minutes=tempo_expiracao)
@@ -443,8 +443,8 @@ def enviar_sinal():
     chat_id = BOT2_CANAIS_CONFIG["pt"][0]  # Pegar apenas o primeiro canal em português
     
     try:
-        # PASSO 1: Enviar mensagem de participação IMEDIATAMENTE no horário agendado
-        BOT2_LOGGER.info("Enviando mensagem de participação")
+        # PASSO 1: Enviar mensagem de participação IMEDIATAMENTE (5 min antes do sinal)
+        BOT2_LOGGER.info("Enviando mensagem de participação (5 minutos antes do sinal)")
         mensagem_participacao = formatar_mensagem_participacao("pt")
         bot2.send_message(
             chat_id=chat_id,
@@ -454,17 +454,17 @@ def enviar_sinal():
         )
         BOT2_LOGGER.info("Mensagem de participação enviada com sucesso")
         
-        # PASSO 2: Agendar GIF para 20 segundos depois
+        # PASSO 2: Agendar GIF para 20 segundos depois da mensagem de participação
         threading.Timer(20, lambda: enviar_gif_pre_sinal(chat_id)).start()
         BOT2_LOGGER.info("Agendado envio de GIF para daqui a 20 segundos")
         
-        # PASSO 3: Agendar mensagem de abertura para 40 segundos depois
-        threading.Timer(40, lambda: enviar_mensagem_abertura(chat_id)).start()
-        BOT2_LOGGER.info("Agendado envio de mensagem de abertura para daqui a 40 segundos")
+        # PASSO 3: Agendar mensagem de abertura para 3 minutos depois (2 min antes do sinal)
+        threading.Timer(180, lambda: enviar_mensagem_abertura(chat_id)).start()
+        BOT2_LOGGER.info("Agendado envio de mensagem de abertura para daqui a 3 minutos (2 min antes do sinal)")
         
-        # PASSO 4: Agendar o sinal propriamente dito para 60 segundos (1 minuto) depois
-        threading.Timer(60, lambda: enviar_sinal_propriamente_dito(sinal, chat_id)).start()
-        BOT2_LOGGER.info("Agendado envio do sinal para daqui a 60 segundos (1 minuto)")
+        # PASSO 4: Agendar o sinal propriamente dito para 5 minutos depois (horário exato)
+        threading.Timer(300, lambda: enviar_sinal_propriamente_dito(sinal, chat_id)).start()
+        BOT2_LOGGER.info("Agendado envio do sinal para daqui a 5 minutos (no horário exato)")
         
         return True
     except Exception as e:
@@ -506,7 +506,7 @@ def enviar_gif_pre_sinal(chat_id):
 
 # Função para enviar a mensagem de abertura da corretora
 def enviar_mensagem_abertura(chat_id):
-    """Envia a mensagem de abertura da corretora 40 segundos após a mensagem de participação."""
+    """Envia a mensagem de abertura da corretora 3 minutos após a mensagem de participação (2 min antes do sinal)."""
     BOT2_LOGGER.info("Iniciando envio da mensagem de abertura da corretora")
     
     try:
@@ -528,7 +528,7 @@ def enviar_mensagem_abertura(chat_id):
 
 # Função para enviar o sinal propriamente dito
 def enviar_sinal_propriamente_dito(sinal, chat_id):
-    """Envia o sinal propriamente dito no horário correto."""
+    """Envia o sinal propriamente dito 5 minutos após a mensagem de participação (no horário exato)."""
     BOT2_LOGGER.info("Iniciando envio do sinal propriamente dito")
     
     try:
@@ -554,8 +554,9 @@ def iniciar_bot():
     """Inicia o bot e agenda o envio de sinais para horários específicos."""
     BOT2_LOGGER.info("Iniciando bot...")
     
-    # Horários específicos para envio de sinais
-    horarios_envio = ["10:00", "12:00", "18:00", "22:00"]
+    # Horários específicos para envio de sinais (5 minutos antes do horário do sinal)
+    # O sinal chegará às 10h, 12h, 18h e 22h
+    horarios_envio = ["09:55", "11:55", "17:55", "21:55"]
     
     # Agendar envio de sinais para cada horário específico
     for horario in horarios_envio:
