@@ -136,34 +136,43 @@ HORARIO_24_7 = {
 }
 
 HORARIOS_PADRAO = {
-    "Bitcoin": HORARIO_24_7,
-    "Litecoin": HORARIO_24_7,
-    "Cardano": HORARIO_24_7,
-    "AUD_JPY": HORARIO_24_7,
-    "BNB": HORARIO_24_7,
+    # Crypto
+    "ETH_USDT": HORARIO_24_7,
+    "XRP_USDT": HORARIO_24_7,
+    "BTC_USDT": HORARIO_24_7,
+    "SOL_USDT": HORARIO_24_7,
+    # OTC
     "EUR_USD_(OTC)": HORARIO_24_7,
-    "Bitcoin_(OTC)": HORARIO_24_7,
-    "Litecoin_(OTC)": HORARIO_24_7,
-    "Apple_(OTC)": HORARIO_24_7,
-    "Cardano_(OTC)": HORARIO_24_7,
+    "AMEX_(OTC)": HORARIO_24_7,
     "EUR_GBP_(OTC)": HORARIO_24_7,
-    "AUD_JPY_(OTC)": HORARIO_24_7,
-    "XAU_USD_(OTC)": HORARIO_24_7,
-    "BNB_(OTC)": HORARIO_24_7,
-    "Netflix_(OTC)": HORARIO_24_7,
-    "Tesla_(OTC)": HORARIO_24_7,
     "Microsoft_(OTC)": HORARIO_24_7,
-    "EUR_JPY_(OTC)": HORARIO_24_7,
-    "GBP_USD": HORARIO_24_7,
-    "AUD_CAD": HORARIO_24_7,
-    "USD_CAD": HORARIO_24_7,
-    "NZD_USD": HORARIO_24_7,
+    "GBP_USD_(OTC)": HORARIO_24_7,
+    "JPY_USD_(OTC)": HORARIO_24_7,
+    "Apple_(OTC)": HORARIO_24_7,
+    "Facebook_(OTC)": HORARIO_24_7,
+    "UKOIL_(OTC)": HORARIO_24_7,
+    "McDonald's_(OTC)": HORARIO_24_7,
+    "BRL_USD_(OTC)": HORARIO_24_7,
+    "Bitcoin_(OTC)": HORARIO_24_7,
+    "Ethereum_(OTC)": HORARIO_24_7,
+    "XRP_(OTC)": HORARIO_24_7,
+    "Solana_(OTC)": HORARIO_24_7,
+    "Dogecoin_(OTC)": HORARIO_24_7,
+    "Cardano_(OTC)": HORARIO_24_7,
+    "DYDX_(OTC)": HORARIO_24_7,
+    "Google_(OTC)": HORARIO_24_7,
+    "Intel_(OTC)": HORARIO_24_7,
+    # Synthetics
+    "Volatility_10": HORARIO_24_7,
+    "Volatility_25": HORARIO_24_7,
+    "Jump_10": HORARIO_24_7,
+    "Jump_75": HORARIO_24_7,
+    "Bear_Market": HORARIO_24_7,
+    "Bull_Market": HORARIO_24_7,
+    # Forex
+    "EUR_USD": HORARIO_24_7,
+    "EUR_GBP": HORARIO_24_7,
     "USD_JPY": HORARIO_24_7,
-    "CAD_JPY": HORARIO_24_7,
-    "CHF_JPY": HORARIO_24_7,
-    "XRP": HORARIO_24_7,
-    "Ethereum": HORARIO_24_7,
-    "Solana": HORARIO_24_7,
 }
 
 # Variáveis de controle
@@ -246,34 +255,43 @@ def verificar_ativos_disponiveis():
     try:
         # Lista completa dos ativos disponíveis
         todos_ativos = [
-            "Bitcoin",
-            "Litecoin",
-            "Cardano",
-            "AUD/JPY",
-            "BNB",
+            # Crypto
+            "ETH/USDT",
+            "XRP/USDT",
+            "BTC/USDT",
+            "SOL/USDT",
+            # OTC
             "EUR/USD (OTC)",
-            "Bitcoin (OTC)",
-            "Litecoin (OTC)",
-            "Apple (OTC)",
-            "Cardano (OTC)",
+            "AMEX (OTC)",
             "EUR/GBP (OTC)",
-            "AUD/JPY (OTC)",
-            "XAU/USD (OTC)",
-            "BNB (OTC)",
-            "Netflix (OTC)",
-            "Tesla (OTC)",
             "Microsoft (OTC)",
-            "EUR/JPY (OTC)",
-            "GBP/USD",
-            "AUD/CAD",
-            "USD/CAD",
-            "NZD/USD",
-            "USD/JPY",
-            "CAD/JPY",
-            "CHF/JPY",
-            "XRP",
-            "Ethereum",
-            "Solana"
+            "GBP/USD (OTC)",
+            "JPY/USD (OTC)",
+            "Apple (OTC)",
+            "Facebook (OTC)",
+            "UKOIL (OTC)",
+            "McDonald's (OTC)",
+            "BRL/USD (OTC)",
+            "Bitcoin (OTC)",
+            "Ethereum (OTC)",
+            "XRP (OTC)",
+            "Solana (OTC)",
+            "Dogecoin (OTC)",
+            "Cardano (OTC)",
+            "DYDX (OTC)",
+            "Google (OTC)",
+            "Intel (OTC)",
+            # Synthetics
+            "Volatility 10",
+            "Volatility 25",
+            "Jump 10",
+            "Jump 75",
+            "Bear Market",
+            "Bull Market",
+            # Forex
+            "EUR/USD",
+            "EUR/GBP",
+            "USD/JPY"
         ]
         
         # Filtrar apenas os ativos disponíveis no momento
@@ -285,10 +303,10 @@ def verificar_ativos_disponiveis():
         if not ativos_disponiveis:
             BOT2_LOGGER.warning("Nenhum ativo disponível! Usando lista de fallback.")
             fallback_ativos = [
-                "Bitcoin",
-                "Ethereum",
+                "BTC/USDT",
+                "ETH/USDT",
                 "EUR/USD (OTC)",
-                "Tesla (OTC)"
+                "Bitcoin (OTC)"
             ]
             return fallback_ativos
         
@@ -299,10 +317,10 @@ def verificar_ativos_disponiveis():
         BOT2_LOGGER.error(traceback.format_exc())
         # Lista reduzida em caso de erro
         return [
-            "Bitcoin",
-            "Ethereum",
+            "BTC/USDT",
+            "ETH/USDT",
             "EUR/USD (OTC)",
-            "Tesla (OTC)"
+            "Bitcoin (OTC)"
         ]
 
 # Função para gerar um sinal aleatório
@@ -369,7 +387,7 @@ def formatar_mensagem_sinal(sinal, idioma):
     
     # Novo formato de mensagem
     mensagem = (
-        f"🧑‍💻 Dark confirmou entrada\n\n"
+        f"🧑‍💻 Ramon Vasko confirmou entrada\n\n"
         f"📊 Par = {ativo}\n"
         f"⏰ Expiração = {tempo_expiracao} Minuto\n\n"
         f"💻 Entrada às {hora_sinal_str}\n"
