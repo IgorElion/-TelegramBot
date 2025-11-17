@@ -99,7 +99,7 @@ for idioma, chats in BOT2_CANAIS_CONFIG.items():
 
 # Links para cada idioma
 LINKS_CORRETORA = {
-    "pt": "https://stke.me/l/1343/1538"
+    "pt": "https://app.youxbroker.com/auth/register?affiliateId=01K9Z26MV6207N61J0AVGM1S3H&affiliateLinkId=01KA984YWV9EQYXC0A03T1GKSP"
 }
 
 # URLs dos vídeos para cada idioma
@@ -432,7 +432,7 @@ def formatar_mensagem_abertura_corretora(idioma):
     mensagem = (
         "👉🏼Abram a corretora Pessoal\n\n"
         "⚠FIQUEM ATENTOS⚠\n\n"
-        "🔥Cadastre-se na Vetra Broker agora mesmo🔥\n\n"
+        "🔥Cadastre-se na YouX Broker agora mesmo🔥\n\n"
         f'➡ <a href="{link_corretora}">CLICANDO AQUI</a>'
     )
         
@@ -472,15 +472,11 @@ def enviar_sinal():
         )
         BOT2_LOGGER.info("Mensagem de participação enviada com sucesso")
         
-        # PASSO 2: Agendar GIF para 20 segundos depois da mensagem de participação
-        threading.Timer(20, lambda: enviar_gif_pre_sinal(chat_id)).start()
-        BOT2_LOGGER.info("Agendado envio de GIF para daqui a 20 segundos")
-        
-        # PASSO 3: Agendar mensagem de abertura para 3 minutos depois (2 min antes do sinal)
+        # PASSO 2: Agendar mensagem de abertura para 3 minutos depois (2 min antes do sinal)
         threading.Timer(180, lambda: enviar_mensagem_abertura(chat_id)).start()
         BOT2_LOGGER.info("Agendado envio de mensagem de abertura para daqui a 3 minutos (2 min antes do sinal)")
         
-        # PASSO 4: Agendar o sinal propriamente dito para 5 minutos depois (horário exato)
+        # PASSO 3: Agendar o sinal propriamente dito para 5 minutos depois (horário exato)
         threading.Timer(300, lambda: enviar_sinal_propriamente_dito(sinal, chat_id)).start()
         BOT2_LOGGER.info("Agendado envio do sinal para daqui a 5 minutos (no horário exato)")
         
