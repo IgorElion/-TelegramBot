@@ -387,7 +387,7 @@ def formatar_mensagem_sinal(sinal, idioma):
     
     # Novo formato de mensagem
     mensagem = (
-        f"🧑‍💻 Ramon Vasko confirmou entrada\n\n"
+        f"🧑‍💻 Vasko confirmou entrada\n\n"
         f"📊 Par = {ativo}\n"
         f"⏰ Expiração = {tempo_expiracao} Minuto\n\n"
         f"💻 Entrada às {hora_sinal_str}\n"
