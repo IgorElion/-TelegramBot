@@ -142,17 +142,6 @@ HORARIOS_PADRAO = {
     "BTC_USDT": HORARIO_24_7,
     "SOL_USDT": HORARIO_24_7,
     # OTC
-    "EUR_USD_(OTC)": HORARIO_24_7,
-    "AMEX_(OTC)": HORARIO_24_7,
-    "EUR_GBP_(OTC)": HORARIO_24_7,
-    "Microsoft_(OTC)": HORARIO_24_7,
-    "GBP_USD_(OTC)": HORARIO_24_7,
-    "JPY_USD_(OTC)": HORARIO_24_7,
-    "Apple_(OTC)": HORARIO_24_7,
-    "Facebook_(OTC)": HORARIO_24_7,
-    "UKOIL_(OTC)": HORARIO_24_7,
-    "McDonald's_(OTC)": HORARIO_24_7,
-    "BRL_USD_(OTC)": HORARIO_24_7,
     "Bitcoin_(OTC)": HORARIO_24_7,
     "Ethereum_(OTC)": HORARIO_24_7,
     "XRP_(OTC)": HORARIO_24_7,
@@ -160,19 +149,6 @@ HORARIOS_PADRAO = {
     "Dogecoin_(OTC)": HORARIO_24_7,
     "Cardano_(OTC)": HORARIO_24_7,
     "DYDX_(OTC)": HORARIO_24_7,
-    "Google_(OTC)": HORARIO_24_7,
-    "Intel_(OTC)": HORARIO_24_7,
-    # Synthetics
-    "Volatility_10": HORARIO_24_7,
-    "Volatility_25": HORARIO_24_7,
-    "Jump_10": HORARIO_24_7,
-    "Jump_75": HORARIO_24_7,
-    "Bear_Market": HORARIO_24_7,
-    "Bull_Market": HORARIO_24_7,
-    # Forex
-    "EUR_USD": HORARIO_24_7,
-    "EUR_GBP": HORARIO_24_7,
-    "USD_JPY": HORARIO_24_7,
 }
 
 # Variáveis de controle
@@ -261,37 +237,13 @@ def verificar_ativos_disponiveis():
             "BTC/USDT",
             "SOL/USDT",
             # OTC
-            "EUR/USD (OTC)",
-            "AMEX (OTC)",
-            "EUR/GBP (OTC)",
-            "Microsoft (OTC)",
-            "GBP/USD (OTC)",
-            "JPY/USD (OTC)",
-            "Apple (OTC)",
-            "Facebook (OTC)",
-            "UKOIL (OTC)",
-            "McDonald's (OTC)",
-            "BRL/USD (OTC)",
             "Bitcoin (OTC)",
             "Ethereum (OTC)",
             "XRP (OTC)",
             "Solana (OTC)",
             "Dogecoin (OTC)",
             "Cardano (OTC)",
-            "DYDX (OTC)",
-            "Google (OTC)",
-            "Intel (OTC)",
-            # Synthetics
-            "Volatility 10",
-            "Volatility 25",
-            "Jump 10",
-            "Jump 75",
-            "Bear Market",
-            "Bull Market",
-            # Forex
-            "EUR/USD",
-            "EUR/GBP",
-            "USD/JPY"
+            "DYDX (OTC)"
         ]
         
         # Filtrar apenas os ativos disponíveis no momento
@@ -305,8 +257,8 @@ def verificar_ativos_disponiveis():
             fallback_ativos = [
                 "BTC/USDT",
                 "ETH/USDT",
-                "EUR/USD (OTC)",
-                "Bitcoin (OTC)"
+                "Bitcoin (OTC)",
+                "Ethereum (OTC)"
             ]
             return fallback_ativos
         
@@ -319,8 +271,8 @@ def verificar_ativos_disponiveis():
         return [
             "BTC/USDT",
             "ETH/USDT",
-            "EUR/USD (OTC)",
-            "Bitcoin (OTC)"
+            "Bitcoin (OTC)",
+            "Ethereum (OTC)"
         ]
 
 # Função para gerar um sinal aleatório
