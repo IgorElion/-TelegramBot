@@ -104,7 +104,7 @@ LINKS_CORRETORA = {
 
 # URLs dos vídeos para cada idioma
 LINKS_VIDEO = {
-    "pt": "https://t.me/trendingbrazil/215"
+    "pt": "https://t.me/ramonvasko/627"
 }
 
 # URLs diretas para GIFs
@@ -348,7 +348,7 @@ def formatar_mensagem_sinal(sinal, idioma):
         f"Fazer 1º Proteção às {hora_protecao1_str}\n"
         f"Fazer 2º Proteção às {hora_protecao2_str}\n\n"
         f'📲 <a href="{link_corretora}">Clique para abrir a corretora</a>\n'
-        f'🙋‍♂️ <a href="https://t.me/cryptodarktrade/48">Não sabe operar ainda?</a>'
+        f'🙋‍♂️ <a href="https://t.me/ramonvasko/627">Não sabe operar ainda?</a>'
     )
         
     return mensagem
