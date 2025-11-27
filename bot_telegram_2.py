@@ -348,7 +348,8 @@ def formatar_mensagem_sinal(sinal, idioma):
         f"Fazer 1º Proteção às {hora_protecao1_str}\n"
         f"Fazer 2º Proteção às {hora_protecao2_str}\n\n"
         f'📲 <a href="{link_corretora}">Clique para abrir a corretora</a>\n'
-        f'🙋‍♂️ <a href="https://t.me/ramonvasko/627">Não sabe operar ainda?</a>'
+        f'🙋‍♂️ <a href="https://t.me/ramonvasko/627">Não sabe operar ainda?</a>\n'
+        f'📅 <a href="https://t.me/ramonvasko/734">Horários das operações</a>'
     )
         
     return mensagem
@@ -370,7 +371,8 @@ def formatar_mensagem_participacao(idioma):
         "—————————————————————\n\n"
         "2º ✅ —>  Assista o vídeo abaixo e aprenda como depositar e como entrar com a gente nas nossas operações!\n\n"
         "👇🏻👇🏻👇🏻👇🏻\n\n"
-        f'<a href="{link_video}">CLIQUE AQUI E ASSISTA O VÍDEO</a>'
+        f'<a href="{link_video}">CLIQUE AQUI E ASSISTA O VÍDEO</a>\n\n'
+        '📅 <a href="https://t.me/ramonvasko/734">Horários das operações</a>'
     )
         
     return mensagem
@@ -385,7 +387,8 @@ def formatar_mensagem_abertura_corretora(idioma):
         "👉🏼Abram a corretora Pessoal\n\n"
         "⚠FIQUEM ATENTOS⚠\n\n"
         "🔥Cadastre-se na YouX Broker agora mesmo🔥\n\n"
-        f'➡ <a href="{link_corretora}">CLICANDO AQUI</a>'
+        f'➡ <a href="{link_corretora}">CLICANDO AQUI</a>\n\n'
+        '📅 <a href="https://t.me/ramonvasko/734">Horários das operações</a>'
     )
         
     return mensagem
